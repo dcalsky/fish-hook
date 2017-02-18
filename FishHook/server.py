@@ -25,7 +25,7 @@ async def test(request):
     if not check_header(headers):
         return json({"message": "Lack of some special fields in request header!"}, 400)
     # Check signature
-    if sign != headers['X-Hub-Signature']
+    if sign != headers['X-Hub-Signature']:
       return json({'message': "Wrong secret!"}, 400)
 
     return json({'message': 'Ok!'})
