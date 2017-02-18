@@ -8,7 +8,7 @@ def errorHandler(msg):
     return json({'message': msg})
 
 
-@app.route("/lovesome")
+@app.post("/lovesome")
 async def test(request):
     headers = request.headers
     if not check_header(headers):
