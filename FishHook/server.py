@@ -20,7 +20,8 @@ async def test(request):
     headers = request.headers
     body = request.body
     secret = 'react'
-    signature = sign(secret.encode(encoding='utf-8'), body)
+    signature = 'sha1=' + sign(secret.encode(encoding='utf-8'), body)
+    print(signature)
     # Check headers
     if not check_header(headers):
         return json({"message": "Lack of some special fields in request header!"}, 400)
