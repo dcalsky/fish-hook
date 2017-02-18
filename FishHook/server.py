@@ -1,7 +1,14 @@
 from sanic import Sanic
 from sanic.response import json
+from hashlib import sha1
+import hmac
 
 app = Sanic()
+
+
+def sign(secret, body):
+    hashed = hmac.new(secret, body, sha1)
+    return hashed.hexdigest()
 
 
 def errorHandler(msg):
@@ -11,9 +18,18 @@ def errorHandler(msg):
 @app.post("/lovesome")
 async def test(request):
     headers = request.headers
+    body = request.body
+    secret = 'react'
+    sign = sign(secret.encode(encoding='utf-8'), body)
+    # Check headers
     if not check_header(headers):
-        return json({"message": "Lack of some special fields in request header"})
-    return json({"ok": "true"})
+        return json({"message": "Lack of some special fields in request header!"}, 400)
+    # Check signature
+    if sign != headers['X-Hub-Signature']
+      return json({'message': "Wrong secret!"}, 400)
+
+    return json({'message': 'Ok!'})
+
 
 def check_header(headers):
     required_headers = (
