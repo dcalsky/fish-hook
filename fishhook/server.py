@@ -25,15 +25,18 @@ async def serve(request, name):
     signature = 'sha1=' + sign(secret.encode(encoding='utf-8'), body)
     # Check headers
     if not check_header(headers):
-        return json({"message": "Lack of some special fields in request header!"}, 400) # Status: 400
+        return json({"message": "Lack of some special fields in request header!"}, status=400) # Status: 400
     # Check signature
     if signature != headers['X-Hub-Signature']:
-      return json({'message': "Wrong secret!"}, 400) # Status: 400
-
+      return json({'message': "Wrong secret!"}, status=400) # Status: 400
+    # Get the event from Github
     event = headers['X-GitHub-Event']
-    handler.launch(event)
-    return json({'message': 'ok!'})
+    # If event is `ping`, ignore it
+    if event != 'ping':
+        # Distribute event to handler
+        handler.launch(event)
 
+    return json({'message': 'ok!'})
 
 def check_header(headers):
     required_headers = (

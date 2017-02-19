@@ -16,7 +16,7 @@ with codecs.open(os.path.join(os.path.abspath(os.path.dirname(
         raise RuntimeError('Unable to determine version.')
 
 setup(
-    name='sanic',
+    name='fish-hook',
     version=version,
     url='https://github.com/dcalsky/fish-hook/',
     license='MIT',
@@ -28,7 +28,6 @@ setup(
     install_requires=[
         'click>= 6.7',
         'sanic>=0.3.1'
-
     ],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
@@ -38,4 +37,9 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Topic :: Software Development :: Build Tools'
     ],
+    entry_points={
+        'console_scripts': [
+            'fish-hook = fishhook.fishhook:main'
+        ]
+    },
 )
