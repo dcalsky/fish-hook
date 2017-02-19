@@ -8,7 +8,7 @@ from setuptools import setup
 
 
 with codecs.open(os.path.join(os.path.abspath(os.path.dirname(
-        __file__)), 'hook', '__init__.py'), 'r', 'latin1') as fp:
+        __file__)), 'fishhook', '__init__.py'), 'r', 'latin1') as fp:
     try:
         version = re.findall(r"^__version__ = '([^']+)'\r?$",
                              fp.read(), re.M)[0]
@@ -23,7 +23,7 @@ setup(
     author='Dcalsky',
     author_email='dcalsky@gmail.com',
     description='A tool who Manages your webhooks easily.',
-    packages=['fish-hook'],
+    packages=['fishhook'],
     platforms='any',
     install_requires=[
         'click>= 6.7',
