@@ -4,11 +4,43 @@ PORT = '2333'
 HOST = '0.0.0.0'
 CONFIG_NAME = 'app_config.json'
 FISH_HOOK_CONFIG_NAME = 'config.json'
+CIRCUS_CONFIG_NAME = 'deploy.ini'
 DEPLOY_NAME = 'app_deploy.sh'
 DEFAULT_EVENTS = ['push']
 FISH_HOOK_CONFIG_CONTENT = namedtuple('fish_config', ['host', 'port'])
 
+APP_DESC = r"""
+     _____ _     _       _                 _
+    |  ___(_)___| |__   | |__   ___   ___ | | __
+    | |_  | / __| '_ \  | '_ \ / _ \ / _ \| |/ /
+    |  _| | \__ \ | | | | | | | (_) | (_) |   <
+    |_|   |_|___/_| |_| |_| |_|\___/ \___/|_|\_\
+
+
+"""
+
+GET_STARTED_INFO = r"""
+    {fore_black}{back_green} SUCCESS {fore_reset}{back_reset} Your new webhooks manager project has been successfully generated in {dir_name}!
+
+    {fore_white}{style_bright}To get started:
+
+    {fore_reset}{style_normal}cd {dir_name}
+    fish-hook new <webhook_name>
+    {style_bright}EDIT THE WEBHOOK CONFIG...
+    {fore_reset}{style_normal}fish-hook server
+    {style_bright}{fore_green}
+
+    {fore_white}{style_bright}In the production:
+
+    {fore_reset}{style_bright}OPEN THE FIREWALL PORT(Such as port: 2333)...
+    {fore_reset}{style_normal}sudo firewall-cmd --zone=public --add-port=2333/tcp --permanent
+    {fore_reset}{style_normal}screen -d -m fish-hook server
+
+""" + APP_DESC
+
 SH_FILE_CONTENT = r"""
+#!/usr/bin/env bash
+
 APP_PATH="~/{name}"
 
 echo "Open the app directory"
@@ -42,4 +74,10 @@ EVENTS_TEXT = """
     "status": "Any time a Repository has a status update from the API",
     "team_add": "Any time a team is added or modified on a Repository",
     "watchAny": "time a User watches the Repository"
+"""
+
+CIRCUS_CONFIG_CONTENT = """
+[watcher:program]
+cmd = fish-hook server
+numprocesses = 5
 """
