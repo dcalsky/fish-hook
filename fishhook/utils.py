@@ -12,7 +12,3 @@ def find_main_directory(path):
         return find_main_directory(parent_directory)
     else:
         return current_path
-
-
-def check_server():
-    pass

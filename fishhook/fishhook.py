@@ -1,6 +1,9 @@
 import json
 import os
-from .settings import FISH_HOOK_CONFIG_NAME, FISH_HOOK_CONFIG_CONTENT, PORT, HOST, DEFAULT_EVENTS, SH_FILE_CONTENT, APP_CONFIG_NAME
+import shutil
+from colorama import Fore
+from .settings import FISH_HOOK_CONFIG_NAME, FISH_HOOK_CONFIG_CONTENT, PORT, HOST,\
+    DEFAULT_EVENTS, SH_FILE_CONTENT, APP_CONFIG_NAME
 from .utils import find_main_directory
 
 
@@ -43,7 +46,7 @@ class FishHook:
     def run(self):
         # Check app config
         if not os.path.exists(self.config_path):
-            raise Exception('Application configuration is not existed!')
+            raise Exception(Fore.RED + 'Application configuration is not existed!')
 
         # Read config file. todo: More free fields
         with open(self.config_path) as json_config_file:
@@ -71,6 +74,24 @@ class FishHook:
         else:
             raise Exception('Application configuration has existed!')
 
+    def remove(self, name):
+        app_path = os.path.join(self.base_path, name)
+        if not os.path.exists(app_path):
+            raise Exception ('App directory is not existed!')
+        # Read general config file
+        config = self._get_general_config()
+        if name not in config['apps']:
+            raise Exception('fish-hook not includes this app!')
+
+        config['apps'].remove(name)
+
+        # Rewrite general config file
+        self._write_general_config(config)
+
+        # Remove the app directory
+        shutil.rmtree(app_path)
+        print(Fore.GREEN + '{} has been removed!'.format(name))
+
     def new(self, name, secret):
         app_path = os.path.join(self.base_path, name)
         config_file_content = {
@@ -90,13 +111,11 @@ class FishHook:
                 outfile.write(SH_FILE_CONTENT.format(name=name))
 
         # Read general config file
-        with open(os.path.join(self.base_path, FISH_HOOK_CONFIG_NAME)) as json_config_file:
-            config = json.load(json_config_file)
-            apps = config.get('apps')
-            apps.append(name)
+        config = self._get_general_config()
+        config['apps'].append(name)
 
-        with open(self.config_path, 'w') as outfile:
-            json.dump(config, outfile)  # Rewrite general config file
+        # Rewrite general config file
+        self._write_general_config(config)
 
         # Write app configuration in `app` directory
         with open(os.path.join(app_path, APP_CONFIG_NAME), 'w') as outfile:
@@ -106,3 +125,15 @@ class FishHook:
         miss_apps = set(self.apps).difference(set(os.listdir(self.base_path)))
         if len(miss_apps) != 0:
             raise Exception('Your missing apps: {}'.format(', '.join(miss_apps)))
+
+    def _get_general_config(self, func=None):
+        with open(os.path.join(self.base_path, FISH_HOOK_CONFIG_NAME)) as json_config_file:
+            config = json.load(json_config_file)
+            if not func:
+                return config
+            return func(config)
+
+    def _write_general_config(self, content):
+        # Write app configuration in `app` directory
+        with open(self.config_path, 'w') as outfile:
+            json.dump(content, outfile)

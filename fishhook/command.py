@@ -32,9 +32,10 @@ def server():
     hook.run()
 
 @main.command()
-def remove():
-    # todo
-    pass
+@click.option('--name', prompt='repository name', help='The repository name')
+def remove(name):
+    hook = FishHook()
+    hook.remove(name)
 
 @main.command()
 def events():
