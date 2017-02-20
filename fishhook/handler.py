@@ -1,6 +1,6 @@
 import os
 import json
-from .settings import CONFIG_NAME, DEPLOY_NAME, SH_FILE_CONTENT, DEFAULT_EVENTS
+from .settings import CONFIG_NAME, SH_FILE_CONTENT, DEFAULT_EVENTS
 
 
 class Handler(object):
@@ -10,7 +10,6 @@ class Handler(object):
         self.secret = secret
         self.app_path = os.path.join(self.dir, self.name)
         self.config_file_path = os.path.join(self.app_path, CONFIG_NAME)
-        self.deploy_file_path = os.path.join(self.app_path, DEPLOY_NAME)
 
         if secret is None:
             with open(self.config_file_path) as json_data_file:

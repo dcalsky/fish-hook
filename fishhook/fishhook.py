@@ -1,5 +1,4 @@
 import click
-import os
 from colorama import Fore, Back, Style
 from .app import FishHook
 from .settings import EVENTS_TEXT, GET_STARTED_INFO

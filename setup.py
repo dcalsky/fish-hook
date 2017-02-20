@@ -27,7 +27,8 @@ setup(
     platforms='any',
     install_requires=[
         'click>= 6.7',
-        'sanic>=0.3.1'
+        'sanic>=0.3.1',
+        'colorama'
     ],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',

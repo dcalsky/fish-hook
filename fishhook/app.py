@@ -1,5 +1,5 @@
 from .server import server
-from .settings import FISH_HOOK_CONFIG_NAME, FISH_HOOK_CONFIG_CONTENT, CIRCUS_CONFIG_CONTENT, CIRCUS_CONFIG_NAME, PORT, HOST
+from .settings import FISH_HOOK_CONFIG_NAME, FISH_HOOK_CONFIG_CONTENT, PORT, HOST
 from .handler import Handler
 import json
 import os
