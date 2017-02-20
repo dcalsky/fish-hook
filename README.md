@@ -34,13 +34,13 @@ fish/
 		app_config.json
 		push.sh
 ```
-You can reference [webhook events of github](#events) add your own shell script file like `push.sh` in `example` directory.  
+You can reference [all webhook events of github](#events) add your own shell script file like `push.sh` in `example` directory.  
 
 For example, if you create a shell script file named `fork.sh` in `example` directory,  the `fork.sh` will be executed when `fish-hook` got the `fork` event from github(someone forks this repository).
 
-*\*The fish-hook will do nothing without send a normal message at `Ping ` event received.*
+*The fish-hook will do nothing without send a normal message at `Ping ` event received.*
 
-*\*Most of the time, you just need a shell script to handle `push` event :P*
+*Most of the time, you just need a shell script to handle `push` event :P*
 
 
 
@@ -61,7 +61,7 @@ For example, if you create a shell script file named `fork.sh` in `example` dire
 | Name                          | Description                              |
 | ----------------------------- | ---------------------------------------- |
 | "*"                           | "Any time any event is triggered",       |
-|                               | "Any time a Commit is commented on",     |
+| commit_comment                | "Any time a Commit is commented on",     |
 | "create"                      | "Any time a Repository, Branch, or Tag is created", |
 | "delete"                      | "Any time a Branch or Tag is deleted",   |
 | "deployment_status"           | "Any time a deployment for the Repository has a status update from the API", |
