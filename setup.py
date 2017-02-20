@@ -40,7 +40,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'fish-hook = fishhook.fishhook:main'
+            'fish-hook = fishhook.command:main'
         ]
     },
 )

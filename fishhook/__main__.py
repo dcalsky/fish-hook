@@ -1,4 +1,4 @@
-from .fishhook import main
+from .command import main
 
 if __name__ == '__main__':
     main()

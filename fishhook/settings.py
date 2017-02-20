@@ -2,12 +2,13 @@ from collections import namedtuple
 
 PORT = '2333'
 HOST = '0.0.0.0'
-CONFIG_NAME = 'app_config.json'
+MAIN_DIRECTORY_NAME = 'fish'
+APP_CONFIG_NAME = 'app_config.json'
 FISH_HOOK_CONFIG_NAME = 'config.json'
 # CIRCUS_CONFIG_NAME = 'deploy.ini'
 # DEPLOY_NAME = 'app_deploy.sh'
 DEFAULT_EVENTS = ['push']
-FISH_HOOK_CONFIG_CONTENT = namedtuple('fish_config', ['host', 'port'])
+FISH_HOOK_CONFIG_CONTENT = namedtuple('fish_config', ['host', 'port', 'apps'])
 REQUIRED_HEADERS = ( 'x-github-event', 'x-hub-signature', 'x-github-delivery' )
 
 APP_DESC = r"""
@@ -26,7 +27,7 @@ GET_STARTED_INFO = r"""
     {fore_white}{style_bright}To get started:
 
     {fore_reset}{style_normal}cd {dir_name}
-    fish-hook new <webhook_name>
+    fish-hook new
     {style_bright}EDIT THE WEBHOOK CONFIG...
     {fore_reset}{style_normal}fish-hook server
     {style_bright}{fore_green}
@@ -42,7 +43,7 @@ GET_STARTED_INFO = r"""
 SH_FILE_CONTENT = r"""
 #!/usr/bin/env bash
 
-APP_PATH="~/{name}"
+APP_PATH="$HOME/{name}"
 
 echo "Open the app directory"
 cd $APP_PATH

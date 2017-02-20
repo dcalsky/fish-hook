@@ -87,3 +87,7 @@ For example, if you create a shell script file named `fork.sh` in `example` dire
 [Dcalsky](https://www.noddl.me/)
 ## Licence
 MIT
+
+## Todo
+- fish-hook should be able to run at any corner of `fish` directory rather than main directory
+- add `prod` command

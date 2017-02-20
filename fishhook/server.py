@@ -1,27 +1,20 @@
+import hmac
 from sanic import Sanic
 from sanic.response import json
 from hashlib import sha1
-from .handler import Handler
 from .settings import REQUIRED_HEADERS
-import hmac
+from .fishhook import FishHook
 
 server = Sanic()
 
-def sign(secret, body):
-    hashed = hmac.new(secret, body, sha1)
-    return hashed.hexdigest()
-
-
-def errorHandler(msg):
-    return json({'message': msg})
-
-
-@server.post("/<name>")
+@server.post('/<name>')
 async def serve(request, name):
     headers = request.headers
     body = request.body
-    handler = Handler(name)
-    secret = handler.config.get('secret', '') # todo: if no secret field, throw error
+    secret = FishHook.get_secret(name)
+
+    if secret == None:
+        return json({'message': "No this app"}, status=400)  # Status: 400
 
     signature = 'sha1=' + sign(secret.encode(encoding='utf-8'), body)
     # Check headers
@@ -38,9 +31,16 @@ async def serve(request, name):
 
     # If event is `ping`, ignore it
     if event != 'ping':
-        handler.launch(event) # Distribute event to handler
+        FishHook.execute_event(event) # Distribute event to handler
 
     return json({'message': 'ok!'})
 
 def loss_header(headers):
     return len(REQUIRED_HEADERS - headers.keys()) != 0
+
+def sign(secret, body):
+    hashed = hmac.new(secret, body, sha1)
+    return hashed.hexdigest()
+
+def errorHandler(msg):
+    return json({'message': msg})
