@@ -8,6 +8,7 @@ FISH_HOOK_CONFIG_NAME = 'config.json'
 # DEPLOY_NAME = 'app_deploy.sh'
 DEFAULT_EVENTS = ['push']
 FISH_HOOK_CONFIG_CONTENT = namedtuple('fish_config', ['host', 'port'])
+REQUIRED_HEADERS = ( 'x-github-event', 'x-hub-signature', 'x-github-delivery' )
 
 APP_DESC = r"""
      _____ _     _       _                 _
@@ -44,7 +45,7 @@ SH_FILE_CONTENT = r"""
 APP_PATH="~/{name}"
 
 echo "Open the app directory"
-cd $PATH
+cd $APP_PATH
 echo "Pulling source code..."
 git clean -f
 git pull

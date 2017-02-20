@@ -42,5 +42,5 @@ def create_initialization_info(directory_name):
     print(GET_STARTED_INFO.format(
         fore_black=Fore.BLACK, back_green=Back.GREEN, fore_white=Fore.WHITE, fore_reset=Fore.RESET, back_reset=Back.RESET,
         style_bright=Style.BRIGHT, style_normal=Style.NORMAL, fore_green=Fore.GREEN,
-        dir_name='fish-hook'
+        dir_name=directory_name
     ))

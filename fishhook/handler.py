@@ -43,4 +43,4 @@ class Handler(object):
         if event in current_events:
             raise Exception('No any {} event is defined!'.format(event))
 
-        os.system(os.path.join(self.app_path, event + '.sh'))
+        os.system('sh ' + os.path.join(self.app_path, event + '.sh'))
