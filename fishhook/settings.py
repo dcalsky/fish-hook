@@ -4,8 +4,8 @@ PORT = '2333'
 HOST = '0.0.0.0'
 CONFIG_NAME = 'app_config.json'
 FISH_HOOK_CONFIG_NAME = 'config.json'
-CIRCUS_CONFIG_NAME = 'deploy.ini'
-DEPLOY_NAME = 'app_deploy.sh'
+# CIRCUS_CONFIG_NAME = 'deploy.ini'
+# DEPLOY_NAME = 'app_deploy.sh'
 DEFAULT_EVENTS = ['push']
 FISH_HOOK_CONFIG_CONTENT = namedtuple('fish_config', ['host', 'port'])
 
@@ -76,8 +76,8 @@ EVENTS_TEXT = """
     "watchAny": "time a User watches the Repository"
 """
 
-CIRCUS_CONFIG_CONTENT = """
-[watcher:program]
-cmd = fish-hook server
-numprocesses = 5
-"""
+# CIRCUS_CONFIG_CONTENT = """
+# [watcher:program]
+# cmd = fish-hook server
+# numprocesses = 5
+# """

@@ -13,7 +13,7 @@ def main():
 @click.argument('directory', nargs=-1, type=click.Path(exists=False))
 @click.option('--port', prompt='port', help='Fish-hook server will run on this host which belongs to http://0.0.0.0')
 def init(directory, port):
-    directory_name = (len(directory) == 0 and 'fish-hook' or directory[0])
+    directory_name = (len(directory) == 0 and 'fish' or directory[0])
     hook = FishHook(port=port)
     hook.init(directory_name)
     create_initialization_info(directory_name)
