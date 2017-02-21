@@ -14,9 +14,11 @@ async def serve(request, name):
     secret = FishHook.get_secret(name)
 
     if secret == None:
-        return json({'message': "No this app"}, status=400)  # Status: 400
+        return json({'message': "No register app!"}, status=400)
 
+    # SHA1 encryption
     signature = 'sha1=' + sign(secret.encode(encoding='utf-8'), body)
+
     # Check headers
     if loss_header(headers):
         return json({"message": "Lack of some special fields in request header!"}, status=400) # Status: 400
@@ -30,8 +32,9 @@ async def serve(request, name):
     event = headers['x-github-event']
 
     # If event is `ping`, ignore it
+    # Else distribute the event
     if event != 'ping':
-        FishHook.execute_event(event) # Distribute event to handler
+        FishHook.execute_event(event)
 
     return json({'message': 'ok!'})
 

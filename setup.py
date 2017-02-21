@@ -22,7 +22,7 @@ setup(
     license='MIT',
     author='Dcalsky',
     author_email='dcalsky@gmail.com',
-    description='A tool who Manages your webhooks easily.',
+    description='A console tool which manages your github webhooks efficiently.',
     packages=['fishhook'],
     platforms='any',
     install_requires=[

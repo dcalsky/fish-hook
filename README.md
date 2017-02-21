@@ -3,13 +3,13 @@ fish-hook
 =================
 fish-hook is an efficient tool for managing your lots of github webhooks.
 
-## Get started
-### Requirement
+## Requirement
 - \>= python3.5
 - pip3
 
 *Notice: Because of using sanic web framework, python3.5 or more high version needed!*
 
+## Get started
 ### Installation
 ```bash
 $ pip3 install fish-hook
@@ -42,7 +42,20 @@ For example, if you create a shell script file named `fork.sh` in `example` dire
 
 *Most of the time, you just need a shell script to handle `push` event :P*
 
+### Create a webhook
+```
+$ fish-hook new
+```
 
+### Remove the webhook
+```
+$ fish-hook remove
+```
+
+### Get all github webhook events
+```
+$ fish-hook events
+```
 
 ## Production
 ### Use Screen
@@ -85,9 +98,10 @@ For example, if you create a shell script file named `fork.sh` in `example` dire
 
 ## Author
 [Dcalsky](https://www.noddl.me/)
+
 ## Licence
 MIT
 
-## Todo
-- fish-hook should be able to run at any corner of `fish` directory rather than main directory
-- add `prod` command
+## Todos
+- Add `prod` command
+- Improve compatibility

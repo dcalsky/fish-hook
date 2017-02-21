@@ -2,9 +2,9 @@ import json
 import os
 import shutil
 from colorama import Fore
+from .utils import find_main_directory
 from .settings import FISH_HOOK_CONFIG_NAME, FISH_HOOK_CONFIG_CONTENT, PORT, HOST,\
     DEFAULT_EVENTS, SH_FILE_CONTENT, APP_CONFIG_NAME
-from .utils import find_main_directory
 
 
 class FishHook:

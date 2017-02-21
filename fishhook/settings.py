@@ -5,8 +5,6 @@ HOST = '0.0.0.0'
 MAIN_DIRECTORY_NAME = 'fish'
 APP_CONFIG_NAME = 'app_config.json'
 FISH_HOOK_CONFIG_NAME = 'config.json'
-# CIRCUS_CONFIG_NAME = 'deploy.ini'
-# DEPLOY_NAME = 'app_deploy.sh'
 DEFAULT_EVENTS = ['push']
 FISH_HOOK_CONFIG_CONTENT = namedtuple('fish_config', ['host', 'port', 'apps'])
 REQUIRED_HEADERS = ( 'x-github-event', 'x-hub-signature', 'x-github-delivery' )
@@ -77,9 +75,3 @@ EVENTS_TEXT = """
     "team_add": "Any time a team is added or modified on a Repository",
     "watchAny": "time a User watches the Repository"
 """
-
-# CIRCUS_CONFIG_CONTENT = """
-# [watcher:program]
-# cmd = fish-hook server
-# numprocesses = 5
-# """
