@@ -3,6 +3,8 @@ fish-hook
 =================
 fish-hook is an efficient tool for managing your lots of github webhooks.
 
+[中文版文档](https://github.com/dcalsky/fish-hook/blob/master/README_CN.md)
+
 ## Requirement
 - \>= python3.5
 - pip3
