@@ -16,17 +16,18 @@ async def serve(request, name):
     if secret == None:
         return json({'message': "No register app!"}, status=400)
 
-    # SHA1 encryption
-    signature = 'sha1=' + sign(secret.encode(encoding='utf-8'), body)
+    # If set the secret, SHA1 encryption.
+    signature =  'sha1=' + sign(secret.encode(encoding='utf-8'), body) if secret != "" else None
 
     # Check headers
     if loss_header(headers):
-        return json({"message": "Lack of some special fields in request header!"}, status=400) # Status: 400
+        return json({"message": "Lack of some special fields in request header!"}, status=400)
 
-    # Check signature
-    correct_signature = headers['x-hub-signature']
+    # Check signature, if secret exists
+    correct_signature = headers.get('x-hub-signature', None)
+
     if signature != correct_signature:
-      return json({'message': "Wrong secret!"}, status=400) # Status: 400
+      return json({'message': "The secret is mismatching!"}, status=400)
 
     # Get the event from Github
     event = headers['x-github-event']
@@ -34,11 +35,12 @@ async def serve(request, name):
     # If event is `ping`, ignore it
     # Else distribute the event
     if event != 'ping':
-        FishHook.execute_event(event)
+        FishHook.execute_event(name, event)
 
     return json({'message': 'ok!'})
 
 def loss_header(headers):
+    # Get union set
     return len(REQUIRED_HEADERS - headers.keys()) != 0
 
 def sign(secret, body):
