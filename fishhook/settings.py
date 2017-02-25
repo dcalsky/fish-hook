@@ -7,7 +7,7 @@ APP_CONFIG_NAME = 'app_config.json'
 FISH_HOOK_CONFIG_NAME = 'config.json'
 DEFAULT_EVENTS = ['push']
 FISH_HOOK_CONFIG_CONTENT = namedtuple('fish_config', ['host', 'port', 'apps'])
-REQUIRED_HEADERS = [ 'x-github-event', 'x-github-delivery' ]
+REQUIRED_HEADERS = ( 'x-github-event', 'x-hub-signature', 'x-github-delivery' )
 
 APP_DESC = r"""
      _____ _     _       _                 _
@@ -32,7 +32,7 @@ GET_STARTED_INFO = r"""
 
     {fore_white}{style_bright}In the production:
 
-    {fore_reset}{style_normal}OPEN THE FIREWALL PORT(Such as port: 2333)...
+    {fore_reset}{style_bright}OPEN THE FIREWALL PORT(Such as port: 2333)...
     {fore_reset}{style_normal}sudo firewall-cmd --zone=public --add-port=2333/tcp --permanent
     {fore_reset}{style_normal}screen -d -m fish-hook server
 

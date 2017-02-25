@@ -11,7 +11,7 @@ def main():
 
 @main.command()
 @click.argument('directory', nargs=-1, type=click.Path(exists=False))
-@click.option('--port', prompt='port', help='Fish-hook server will run on this host which belongs to 0.0.0.0')
+@click.option('--port', prompt='port', help='Fish-hook server will run on this host which belongs to http://0.0.0.0')
 def init(directory, port):
     directory_name = (len(directory) == 0 and MAIN_DIRECTORY_NAME or directory[0])
     base_path = os.path.join(os.getcwd(), directory_name)
@@ -21,7 +21,7 @@ def init(directory, port):
 
 @main.command()
 @click.option('--name', prompt='repository name', help='The repository name')
-@click.option('--secret', prompt='webhook secret(optional)', default='', help='As same as the secret in github webhook page')
+@click.option('--secret', prompt='webhook secret', help='As same as the secret in github webhook page')
 def new(name, secret):
     hook = FishHook()
     hook.new(name, secret)
