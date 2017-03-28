@@ -4,6 +4,7 @@ from sanic.response import json
 from hashlib import sha1
 from .settings import REQUIRED_HEADERS
 from .fishhook import FishHook
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
 server = Sanic()
 
@@ -33,7 +34,7 @@ async def serve(request, name):
     event = headers['x-github-event']
 
     # If event is `ping`, ignore it
-    # Else distribute the event
+    # Else, distributing the event
     if event != 'ping':
         FishHook.execute_event(name, event)
 

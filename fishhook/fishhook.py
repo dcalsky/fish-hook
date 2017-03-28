@@ -60,7 +60,7 @@ class FishHook:
             server.run(host=host, port=port)
 
     def init(self, port):
-        # Create fish-hook directory
+        # Create and enter the fish-hook directory
         port = port or PORT
         os.mkdir(self.base_path)
         os.chdir(self.base_path)
